@@ -1,5 +1,5 @@
 from django import template
-from django.http import HttpRequest, request
+
 
 
 from menu.models import Item, Menu
@@ -82,7 +82,7 @@ def draw_menu(context, name):
 
 
     return {'start': start, 'path': path, 'parent_child': parent_child,
-            'child_name':child_name, 'url':context['url'], 'id_url':id_url, 'child':child}
+            'child_name':child_name, 'id_url':id_url, 'child':child}
 
 
 
