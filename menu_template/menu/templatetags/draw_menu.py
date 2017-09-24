@@ -1,7 +1,6 @@
 from django import template
 
 
-
 from menu.models import Item, Menu
 
 register = template.Library()
@@ -64,7 +63,8 @@ def draw_menu(context, name):
     """
     Определяем, есть ли в данном меню выбранный пункт меню
     """
-    child = url_id.get(context['url'], 0)
+    absolute_url = context["host"] + context["url"]
+    child = url_id.get(context['url'], url_id.get(absolute_url, 0))
 
     """
     Определяем путь до выбранного пункта меню
@@ -82,7 +82,7 @@ def draw_menu(context, name):
 
 
     return {'start': start, 'path': path, 'parent_child': parent_child,
-            'child_name':child_name, 'id_url':id_url, 'child':child}
+            'child_name':child_name,  'id_url':id_url, 'child':child}
 
 
 

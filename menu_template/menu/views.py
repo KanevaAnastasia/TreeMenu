@@ -6,5 +6,5 @@ from django.http import HttpResponse
 
 # Create your views here.
 def main(request):
-    context = {"url": request.path}
+    context = {"url": request.path, "host": request.get_host()}
     return render(request, 'menu/main.html', context)
