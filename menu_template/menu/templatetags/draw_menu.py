@@ -1,5 +1,6 @@
 from django import template
-from django.http import Http404
+from django.http import HttpRequest, request
+
 
 from menu.models import Item, Menu
 
@@ -14,16 +15,6 @@ class Path():
         self.item = item
         self.next = next
 
-"""
-Функция для обработки url
-функция нужна для сравнения url текущей страницы и url пункта меню 
-При это адреса по типу "/company/" и "/company"
-считаются равными
-"""
-def get_url (url):
-    if url[-1] == '/': url = url[:-1]
-    if url[0] == '/': url = url[1:]
-    return url
 
 
 @register.inclusion_tag("menu/menu.html", takes_context=True)
@@ -66,14 +57,14 @@ def draw_menu(context, name):
             parent_child[0] =  parent_child.get(0, [])
             parent_child[0].append(i.id)
             child_parent[i.id] = 0
-        url_id[get_url(i.url)] = i.id
+        url_id[i.url] = i.id
         id_url[i.id] = i.url
         child_name[i.id] = i.name
 
     """
     Определяем, есть ли в данном меню выбранный пункт меню
     """
-    child = url_id.get(get_url(context['url']), 0)
+    child = url_id.get(context['url'], 0)
 
     """
     Определяем путь до выбранного пункта меню
@@ -88,6 +79,7 @@ def draw_menu(context, name):
     Отрисовка меню начитается с нулевого уровня
     """
     start = 0
+
 
     return {'start': start, 'path': path, 'parent_child': parent_child,
             'child_name':child_name, 'url':context['url'], 'id_url':id_url, 'child':child}

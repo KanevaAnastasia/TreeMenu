@@ -5,6 +5,6 @@ import json
 from django.http import HttpResponse
 
 # Create your views here.
-def main(request, url):
-    context = {"url":url}
+def main(request):
+    context = {"url": request.path}
     return render(request, 'menu/main.html', context)

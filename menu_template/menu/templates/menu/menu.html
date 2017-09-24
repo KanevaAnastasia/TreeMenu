@@ -9,7 +9,7 @@
             {% if i == child %}
                     class="active"
             {% endif %}
-            > {{  child_name|dict:i }}</a>
+            > {{  child_name|dict:i }} </a>
             {% if i == path.item %}
                 {% include "menu/menu.html" with start=path.item path=path.next %}
             {% endif %}
