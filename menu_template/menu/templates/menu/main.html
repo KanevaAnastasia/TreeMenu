@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'menu/style.css' %}" />
+    <meta charset="UTF-8">
+    <title>Наше меню</title>
+
+
+    {% load draw_menu %}
+</head>
+<body>
+
+
+    {% draw_menu 'main_menu' %}
+    <p>Здесь может быть текст...</p>
+    {% draw_menu 'contact' %}
+
+
+</body>
+</html>
